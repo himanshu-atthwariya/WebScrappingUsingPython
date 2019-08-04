@@ -19,22 +19,22 @@ class ListParser:
         self.parent=parent
 
     def __repr__(self):
-        return f"<{self.__name__}, {self.__rating__} star worth \u00A3{self.__price__}. Here's the link:- {self.__link__}"
+        return f"<{self.name}, {self.rating} star worth \u00A3{self.price}. Here's the link:- {self.link}"
 
     @property
-    def __name__(self):
+    def name(self):
         locator=ListContentLocator.NAME_LOCATOR
         item_name=self.parent.select_one(locator).attrs["title"]
         return item_name
 
     @property
-    def __link__(self):
+    def link(self):
         locator=ListContentLocator.LINK_LOCATOR
         item_link=self.parent.select_one(locator).attrs["href"]
         return item_link
 
     @property
-    def __price__(self):
+    def price(self):
         locator=ListContentLocator.PRICE_LOCATOR
         item_price_string=self.parent.select_one(locator).string
         pattern="\u00A3([0-9]+\.[0-9]+)"
@@ -42,7 +42,7 @@ class ListParser:
         return float(matcher.group(1))
 
     @property
-    def __rating__(self):
+    def rating(self):
         locator=ListContentLocator.RATING_LOCATOR
         item_para_tag=self.parent.select_one(locator).attrs["class"]
         item_rating=[class_name for class_name in item_para_tag if class_name!="star-rating"]
