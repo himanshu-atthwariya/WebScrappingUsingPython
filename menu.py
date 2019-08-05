@@ -1,4 +1,7 @@
+import logging
 from app import lists_books
+
+logger=logging.getLogger("scraping.menu")
 
 MENU="""Enter:
 - 'a' to look at best 5 books
@@ -33,19 +36,23 @@ def menu():
         else:
             print("Invalid Input. Please Try Again.")
         print()
+    logger.info("Terminating program........")
 
 def print_best_books():
+    logger.info("Finding best books by rating....")
     best_books= sorted(lists_books, key=lambda x: x.rating * -1)[:5]
     for book in best_books:
         print(book)
 
 def print_inexpensive_books():
+    logger.info("Finding inexpensive books by price....")
     inexpesive_books= sorted(lists_books, key=lambda x:x.price)[:5]
     for book in inexpesive_books:
         print(book)
 
 gen_book=(book for book in lists_books)
 def print_next_book():
+    logger.info("getting next from genetor of all books ...")
     print(next(gen_book))
 
 def print_all_books():
